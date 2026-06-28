@@ -1,0 +1,33 @@
+class Solution {
+    public void sortColors(int[] nums) {
+        int countz=0;
+        int counto=0;
+        int countt=0;
+        for(int i = 0 ; i < nums.length ; i++){
+            if(nums[i] == 0){
+                countz++;
+
+            }
+            else if(nums[i] == 1){
+                counto++;
+            }
+            else{
+                countt++;
+            }
+
+        }
+        int k = 0;
+        for(int i = 0 ; i< countz ; i++){
+            nums[k] = 0;
+            k++;
+        }
+        for(int i = 0 ; i <counto ; i++  ){
+            nums[k] = 1;
+            k++;
+        }
+        for(int i = 0 ; i <countt ; i++  ){
+            nums[k] = 2 ;
+            k++;
+        }
+    }
+}

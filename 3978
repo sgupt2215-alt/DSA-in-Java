@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isMiddleElementUnique(int[] nums) {
+        int start = 0 ; 
+        int end = nums.length - 1;
+        int mid = start + (end - start)/2;
+        int target = nums[mid];
+        while(start<end){
+            if(nums[start] == target || nums[end] == target ){
+                return false;
+            }else{
+                start++;
+                end--;
+            }
+        }
+        return true;
+    }
+}

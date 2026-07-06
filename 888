@@ -1,0 +1,40 @@
+class Solution {
+    public int[] fairCandySwap(int[] aliceSizes, int[] bobSizes) {
+        Arrays.sort(aliceSizes);
+        Arrays.sort(bobSizes);
+        int alicetotal = 0;
+        for(int num : aliceSizes){
+            alicetotal += num;
+        }
+        //alicetotal = Arrays.stream(aliceSize).stream();
+        // has a slight overhead so not used in competative environment
+        int bobtotal = 0;
+        for(int num : bobSizes){
+            bobtotal += num;
+        }
+        int[] ans = new int[2];
+        int i = 0;
+        int j = 0;
+        while(i < aliceSizes.length && j < bobSizes.length){
+           int sum1 = alicetotal;
+           int sum2 = bobtotal;
+
+           sum1 = (sum1- aliceSizes[i]) + bobSizes[j];
+            sum2 = (sum2- bobSizes[j]) + aliceSizes[i];
+            if(sum1 == sum2){
+                ans[0] = aliceSizes[i];
+                ans[1] = bobSizes[j];
+                return ans;
+            }
+            else if(sum1 > sum2){
+                i++;
+            
+            }
+            else {
+                j++;
+            }
+
+        }
+        return ans;
+    }
+}

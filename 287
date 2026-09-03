@@ -1,0 +1,22 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+         int[] ans=cyclicsort(nums);
+         return ans[nums.length -1];
+        
+    }
+     static int[] cyclicsort(int[] nums){
+        int i =0;
+        while(i<nums.length){
+            int correctindex=nums[i]-1;
+            if(nums[i]==nums[correctindex] ){
+                i++;
+            }
+            else{
+                int temp=nums[i];
+                nums[i]=nums[correctindex];
+                nums[correctindex]=temp;
+            }
+        }
+        return nums;
+    }
+}

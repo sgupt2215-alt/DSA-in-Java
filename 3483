@@ -1,0 +1,37 @@
+class Solution {
+    public int totalNumbers(int[] digits) {
+        // Step 1: Count the frequency of each digit (0-9) available in the input
+        int[] count = new int[10];
+        for (int digit : digits) {
+            count[digit]++;
+        }
+        
+        int validNumbers = 0;
+        
+        // Step 2: Check every possible 3-digit even number
+        for (int num = 100; num <= 998; num += 2) {
+            
+            // Extract the required digits for the current number
+            int ones = num % 10;
+            int tens = (num / 10) % 10;
+            int hundreds = num / 100;
+            
+            // Temporarily deduct the required digits from our available pool
+            count[ones]--;
+            count[tens]--;
+            count[hundreds]--;
+            
+            // If none of our digit counts dropped below 0, we have enough to form this number
+            if (count[ones] >= 0 && count[tens] >= 0 && count[hundreds] >= 0) {
+                validNumbers++;
+            }
+            
+            // Restore the digit counts for the next iteration in the loop
+            count[ones]++;
+            count[tens]++;
+            count[hundreds]++;
+        }
+        
+        return validNumbers;
+    }
+}

@@ -1,0 +1,76 @@
+/**
+ * // This is MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface MountainArray {
+ *     public int get(int index) {}
+ *     public int length() {}
+ * }
+ */
+ 
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int n = mountainArr.length();
+        int low = 1 ;
+        int high = n - 2;
+        while(low < high){
+            int mid = low +(high - low)/2;
+            int midval = mountainArr.get(mid);
+            int middval = mountainArr.get(mid+1);
+            if(midval > middval ){
+                high = mid ;
+            }
+            else{
+                low = mid +1;
+            }
+            
+        }
+       int pivot = low;
+        int a = binarysearch(mountainArr,target,0,pivot);
+        if(a!= -1){
+            return a;
+        }
+        return binarysearcha(mountainArr,target ,pivot +1 , n -1);
+    }
+
+    // MODIFIED: Changed parameter name from 'pivot' to 'high' so it matches standard binary search
+    private int binarysearch(MountainArray mountainArr , int target ,int low, int high){
+        // MODIFIED: Removed 'int high = pivot;' since it's now handled directly by the parameter
+        
+        // MODIFIED: Changed '<' to '<=' so it doesn't skip checking the final element
+        while(low <= high){ 
+            int mid = low + (high - low )/2;
+            int midval = mountainArr.get(mid);
+            if(midval < target){
+                low = mid+1;
+            }
+            else if(midval > target){
+                high= mid-1;
+            }
+            else{
+                return mid;
+            }
+        }
+         return -1; 
+    }
+
+    // MODIFIED: Fixed parameter order to (low, high). 
+    // Before, you called it with (..., pivot + 1, n - 1) but received it as (..., pivot, low), which completely swapped your bounds.
+    private int binarysearcha(MountainArray mountainArr,int target, int low, int high){
+        // MODIFIED: Removed 'int high = pivot;' since 'high' is now passed in correctly
+        
+        while(low <= high){
+            int mid = low + (high - low )/2;
+            int midval = mountainArr.get(mid);
+             if(midval < target){
+            high = mid - 1;
+        }
+        else if(midval > target){
+            low= mid+1;
+        }
+        else{
+            return mid;
+        }
+        }
+        return -1;
+    }
+}
